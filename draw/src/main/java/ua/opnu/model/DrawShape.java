@@ -1,57 +1,58 @@
 package ua.opnu.model;
 
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Shape;
 
-/*
- * Клас "Фігура для малювання".
- * Клас містить початкову та кінцеву точку, а також різні методи
- */
-public class DrawShape {
-
-    public static DrawShape newInstance(int shapeType) {
-        DrawShape shape = null;
-        if (shapeType == DrawShape.SHAPE_RECTANGLE) {
-            shape = new Rectangle();
-        } else if (shapeType == DrawShape.SHAPE_ROUNDED_RECT) {
-            shape = new RoundedRectangle();
-        }
-        return shape;
-    }
-
-    // Константи для типів фігур
+public abstract class DrawShape {
     public static final int SHAPE_RECTANGLE = 0;
     public static final int SHAPE_ROUNDED_RECT = 1;
+    public static final int SHAPE_ELLIPSE = 2;
 
-    // Початкова та кінцева точки
     private Point startPoint;
     private Point endPoint;
 
-    // Конструктор без параметрів
     public DrawShape() {
-        this(new Point(0, 0), new Point(0, 0));
     }
 
-    // Конструктор з початковими координатами
     public DrawShape(Point startPoint, Point endPoint) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
     }
 
-    // Метод повертає фігуру, яку можна намалювати
-    public Shape getShape() {
-        return this.getShape(startPoint, endPoint);
-    }
-
-    // Так, як ми не можемо намалювати просто "фігуру", то метод повертає null
-    public Shape getShape(Point startPoint, Point endPoint) {
-        return null;
+    public Point getStartPoint() {
+        return startPoint;
     }
 
     public void setStartPoint(Point startPoint) {
         this.startPoint = startPoint;
     }
 
+    public Point getEndPoint() {
+        return endPoint;
+    }
+
     public void setEndPoint(Point endPoint) {
         this.endPoint = endPoint;
+    }
+
+    public Shape getShape(Point start, Point end) {
+        setStartPoint(start);
+        setEndPoint(end);
+        return getShape();
+    }
+
+    public abstract Shape getShape();
+
+    public static DrawShape newInstance(int shapeType) {
+        switch (shapeType) {
+            case SHAPE_RECTANGLE:
+                return new Rectangle();
+            case SHAPE_ROUNDED_RECT:
+                return new RoundedRectangle();
+            case SHAPE_ELLIPSE:
+                return new Ellipse();
+            default:
+                return null;
+        }
     }
 }

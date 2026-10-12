@@ -1,6 +1,7 @@
 package ua.opnu.model;
 
-import java.awt.*;
+import java.awt.Point;
+import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
 public class Rectangle extends DrawShape {
@@ -12,11 +13,14 @@ public class Rectangle extends DrawShape {
         super(startPoint, endPoint);
     }
 
-    // Для відтворення прямокутника ми використовуємо клас Rectangle2D.Double (клас Double усередині класу Rectangle2D).
-    // Клас Rectangle2D.Double приймає координати типу Double
     @Override
-    public Shape getShape(Point startPoint, Point endPoint) {
-        return new Rectangle2D.Double(Math.min(startPoint.getX(), endPoint.getX()), Math.min(startPoint.getY(), endPoint.getY()),
-                Math.abs(startPoint.getX() - endPoint.getX()), Math.abs(startPoint.getY() - endPoint.getY()));
+    public Shape getShape() {
+        if (getStartPoint() == null || getEndPoint() == null) return null;
+        int x = Math.min(getStartPoint().x, getEndPoint().x);
+        int y = Math.min(getStartPoint().y, getEndPoint().y);
+        int width = Math.abs(getStartPoint().x - getEndPoint().x);
+        int height = Math.abs(getStartPoint().y - getEndPoint().y);
+
+        return new Rectangle2D.Double(x, y, width, height);
     }
 }
