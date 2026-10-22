@@ -7,6 +7,7 @@ public class Ellipse extends DrawShape {
 
     @Override
     public Shape getShape() {
+        if (getStartPoint() == null || getEndPoint() == null) return null;
         int x = Math.min(getStartPoint().x, getEndPoint().x);
         int y = Math.min(getStartPoint().y, getEndPoint().y);
         int width = Math.abs(getStartPoint().x - getEndPoint().x);
