@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Shape;
 
 public abstract class DrawShape {
+
     public static final int SHAPE_RECTANGLE = 0;
     public static final int SHAPE_ROUNDED_RECT = 1;
     public static final int SHAPE_ELLIPSE = 2;
@@ -35,16 +36,8 @@ public abstract class DrawShape {
         this.endPoint = endPoint;
     }
 
-    public Shape getShape(Point start, Point end) {
-        setStartPoint(start);
-        setEndPoint(end);
-        return getShape();
-    }
-
-    public abstract Shape getShape();
-
-    public static DrawShape newInstance(int shapeType) {
-        switch (shapeType) {
+    public static DrawShape newInstance(int type) {
+        switch (type) {
             case SHAPE_RECTANGLE:
                 return new Rectangle();
             case SHAPE_ROUNDED_RECT:
@@ -54,5 +47,13 @@ public abstract class DrawShape {
             default:
                 return null;
         }
+    }
+
+    public abstract Shape getShape();
+
+    public Shape getShape(Point startPoint, Point endPoint) {
+        setStartPoint(startPoint);
+        setEndPoint(endPoint);
+        return getShape();
     }
 }
