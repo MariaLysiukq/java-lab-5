@@ -11,26 +11,18 @@ public class SortingMain {
         students.add(new Student("Франко", "Іван", 21, "КН-21", "ST102", 88.0));
 
         System.out.println("Початковий список");
-        for (Student s : students) {
-            System.out.println(s);
-        }
+        students.forEach(System.out::println);
 
         System.out.println("\nСортування за прізвищем (пряме)");
-        students.sort(new LastNameSorter(true));
-        for (Student s : students) {
-            System.out.println(s);
-        }
+        students.sort((s1, s2) -> s1.getLastName().compareTo(s2.getLastName()));
+        students.forEach(System.out::println);
 
         System.out.println("\nСортування за прізвищем (зворотне)");
-        students.sort(new LastNameSorter(false));
-        for (Student s : students) {
-            System.out.println(s);
-        }
+        students.sort((s1, s2) -> s2.getLastName().compareTo(s1.getLastName()));
+        students.forEach(System.out::println);
 
         System.out.println("\nСортування за середнім балом (за зростанням)");
-        students.sort(new GradeSorter(true));
-        for (Student s : students) {
-            System.out.println(s);
-        }
+        students.sort((s1, s2) -> Double.compare(s1.getAverageGrade(), s2.getAverageGrade()));
+        students.forEach(System.out::println);
     }
 }
